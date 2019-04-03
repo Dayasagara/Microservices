@@ -5,10 +5,10 @@ import (
     "net/http"
 	"database/sql"
     "log"
-	config "Microservices/event-scheduler/config"
-	mydb "Microservices/event-scheduler/mydb"
-    helper "Microservices/event-scheduler/helpers"
-    verify "VerifyJWT" 
+    config "microservices-for-docker/event-scheduler/config"
+    mydb "microservices-for-docker/event-scheduler/mydb"
+    helper "microservices-for-docker/event-scheduler/helpers"
+    verify "microservices-for-docker/event-scheduler/VerifyJWT" 
 	_ "github.com/lib/pq"
     "os"
     "strconv"
@@ -42,6 +42,8 @@ func registerServiceWithConsul() {
 	registration.Name = "event-service"
 	address := hostname()
 	registration.Address = address
+	fmt.Println("Addr:", address)
+	//registration.Address = os.Getenv("CONSUL_HTTP_ADDR")
 	port, err := strconv.Atoi(port()[1:len(port())]) 
 	if err != nil {
 		log.Fatalln(err)
@@ -63,10 +65,14 @@ func hostname() string {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	//hn = "52.71.115.181"
+	fmt.Println("Hostname:",hn)
 	return hn
 }
 
 func main() {
+    //os.Setenv("CONSUL_HTTP_ADDR","52.71.115.181")
+    //fmt.Println("env : ",os.Getenv("CONSUL_HTTP_ADDR"))
     registerServiceWithConsul()
     db := connectToDatabase()
     http.HandleFunc("/CreateTable", CreateTable)
@@ -78,8 +84,9 @@ func main() {
 }
 //Database connection
 func connectToDatabase() *sql.DB {
+    host :=""
     dbinfo := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
-    config.HOST, config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.PORT)
+    host, config.DB_USER, config.DB_PASSWORD, config.DB_NAME, config.PORT)
     db, err := sql.Open("postgres", dbinfo)
     if err != nil {
         fmt.Println(err)

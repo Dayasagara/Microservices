@@ -4,9 +4,9 @@ import (
     "fmt"
     "net/http"
     "log"
-	//ms "./email"
-	_ "github.com/lib/pq"
-	verify "VerifyJWT"
+    ms "microservices-for-docker/email-service/email"
+    _ "github.com/lib/pq"
+    verify "microservices-for-docker/email-service/VerifyJWT"
     "os"
     "encoding/json"
     "strconv"
@@ -46,6 +46,7 @@ func registerServiceWithConsul() {
 		log.Fatalln(err)
 	}
 	registration.Port = port
+	fmt.Println("port:",port)
 	consul.Agent().ServiceRegister(registration)
 }
 
@@ -62,11 +63,13 @@ func hostname() string {
 	if err != nil {
 		log.Fatalln(err)
 	}
+	//hn = "52.71.115.181"
 	return hn
 }
 
 func main() {
-    registerServiceWithConsul()
+	//os.Setenv("CONSUL_HTTP_ADDR","52.71.115.181")
+        registerServiceWithConsul()
 	fmt.Printf("user service is up on port: %s", port())
 	http.HandleFunc("/GetEvent",GetEvent)
 	http.ListenAndServe(port(), nil)
@@ -126,7 +129,7 @@ func GetEvent(w http.ResponseWriter, r *http.Request) {
     subject := r.FormValue("subject")
     message := r.FormValue("message")
     fmt.Println(email,name,subject,message)
-    //ms.SendEmail(name,email,subject,message)
+    ms.SendEmail(name,email,subject,message)
 
     var file, err1 = os.Create(`calendar1.ics`)
     defer file.Close()

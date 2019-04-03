@@ -5,5 +5,5 @@ const (
 	DB_PASSWORD = "root"
 	DB_NAME     = "postgres" 
 	PORT = "5432"
-	HOST = "localhost" //Set this to "db" while running in Docker, "localhost" for local device
+	HOST = "db" //Set this to "db" while running in Docker, "localhost" for local device
 )	

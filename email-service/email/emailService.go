@@ -16,19 +16,19 @@ func SendEmail(name,email,subject,message string){
 	reciever := new(to)
 	reciever.Name=name
 	reciever.Address=email
-	SendMail(*reciever,subject,message,"calendar.ics")
+	SendMail(*reciever,subject,message,"calendar1.ics")
 }
 
 func SendMail(to2 struct {Name string; Address string}, subject string, message string, filePath string) {
 
-	d := gomail.NewDialer("smtp.gmail.com", 587, "sender@gmail.com", os.Getenv("serverpassrd"))
+	d := gomail.NewDialer("smtp.gmail.com", 587, "", os.Getenv("serverpassrd"))
 	s, err := d.Dial()
 	if err != nil {
 		panic(err)
 	}
 
 	m := gomail.NewMessage()
-		m.SetHeader("From", "sender@gmail.com")
+		m.SetHeader("From", "")
 		m.SetAddressHeader("To", to2.Address, to2.Name)
 		m.SetHeader("Subject", subject)
 		m.SetBody("text/html", fmt.Sprintf("Hi %s!", to2.Name) + "\n " + message)
