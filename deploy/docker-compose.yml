@@ -23,7 +23,7 @@ services:
     build: 
       context: ..
       dockerfile: event-scheduler/Dockerfile
-    image: microservices-for-docker/event-scheduler:1.0
+    image: microservices/event-scheduler:1.0
     environment: 
       - EVENT_SERVICE_PORT=8082
       - CONSUL_HTTP_ADDR=consul:8500  
@@ -41,7 +41,7 @@ services:
     build: 
       context: ..
       dockerfile: email-service/Dockerfile
-    image: microservices-for-docker/email-service:1.0
+    image: microservices/email-service:1.0
     environment: 
       - EMAIL_SERVICE_PORT=8083
       - CONSUL_HTTP_ADDR=consul:8500 
