@@ -35,15 +35,12 @@ func VerifyHandler(r *http.Request) (*verifier.Jwt, error) {
 	if err != nil {
 		fmt.Println("Decoding error")
 	}
-// ... error handling
 
-// do something with decoded claims
 	Nonce := ""
 	for key, val := range claims {
 		if key == "nonce"{
 			Nonce = val.(string)
-		}
-    	//fmt.Printf("Key: %v, value: %v\n", key, val)
+	
 	}
 	result, verificationError := verifyToken(tok,Nonce) //Token verification
  
