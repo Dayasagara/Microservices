@@ -40,7 +40,7 @@ func VerifyHandler(r *http.Request) (*verifier.Jwt, error) {
 	for key, val := range claims {
 		if key == "nonce"{
 			Nonce = val.(string)
-	
+}
 	}
 	result, verificationError := verifyToken(tok,Nonce) //Token verification
  
