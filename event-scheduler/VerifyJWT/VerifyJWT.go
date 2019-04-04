@@ -15,7 +15,6 @@ type Jwt struct {
 
 var sessionStore = sessions.NewCookieStore([]byte("okta-custom-login-session-store"))
 var state = "ApplicationState"
-//var nonce = "NonceNotSetYet"
 
 func VerifyHandler(r *http.Request) (*verifier.Jwt, error) {
 
@@ -25,7 +24,6 @@ func VerifyHandler(r *http.Request) (*verifier.Jwt, error) {
 	}
 	var tok string
 	tok = (session.Values["id_token"]).(string)
-	//fmt.Println("tok",tok)
 	tokenString := tok
 	claims := jwt.MapClaims{}
 	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (interface{}, error) {
@@ -36,15 +34,12 @@ func VerifyHandler(r *http.Request) (*verifier.Jwt, error) {
 	if err != nil {
 			fmt.Println("Decoding error")
 	}
-// ... error handling
 
-// do something with decoded claims
 	Nonce := ""
 	for key, val := range claims {
 		if key == "nonce"{
 			Nonce = val.(string)
 	}
-//fmt.Printf("Key: %v, value: %v\n", key, val)
 	}
 	result, verificationError := verifyToken(tok,Nonce) //Token verification
 
