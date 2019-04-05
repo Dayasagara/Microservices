@@ -164,7 +164,7 @@ func ListEvent(w http.ResponseWriter, r *http.Request){
     json.NewEncoder(w).Encode(&list)
     
 }
-
+//To create table
 func CreateTable(w http.ResponseWriter, r *http.Request) {
     mydb.CreateTable()
 }
