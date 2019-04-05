@@ -26,7 +26,7 @@ type event struct{
     EndDateTime string `json:"EndDateTime"`
 } 
 
-var mail, sub, desc, loc,sDate, eDate string
+var mail, sub, desc, loc,startTime, endTime string
 
 
 func registerServiceWithConsul() {
@@ -140,8 +140,8 @@ func AddEvent(w http.ResponseWriter, r *http.Request)  {
         sub=subject
         desc=description
         loc=location
-        sDate=StartDateTime
-        eDate=EndDateTime
+        startTime=StartDateTime
+        endTime=EndDateTime
         
     }   
     }else{
@@ -157,8 +157,8 @@ func ListEvent(w http.ResponseWriter, r *http.Request){
         Subject: sub,
         Description: desc,
         Location: loc,
-        StartDateTime: sDate,
-        EndDateTime: eDate,
+        StartDateTime: startTime,
+        EndDateTime: endTime,
     }
     w.Header().Set("Content-Type", "application/json")
     json.NewEncoder(w).Encode(&list)
