@@ -8,7 +8,7 @@ RUN go get github.com/okta/okta-jwt-verifier-golang
 RUN go get gopkg.in/gomail.v2
 RUN go get github.com/lib/pq
 
-ENV SOURCE=/go/src/microservices-for-docker/
+ENV SOURCE=/go/src/microservices/
 COPY . ${SOURCE}
 
 RUN cd ${SOURCE}email-service/ && CGO_ENABLED=0 go build
