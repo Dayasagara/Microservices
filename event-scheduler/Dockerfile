@@ -6,7 +6,7 @@ RUN go get github.com/lib/pq
 RUN go get github.com/gorilla/sessions
 RUN go get github.com/dgrijalva/jwt-go
 RUN go get github.com/okta/okta-jwt-verifier-golang
-ENV SOURCE=/go/src/microservices-for-docker/
+ENV SOURCE=/go/src/microservices/
 COPY . ${SOURCE}
 
 
